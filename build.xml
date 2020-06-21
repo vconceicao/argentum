@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ====================================================================== 
+     19 de jun de 2020 22:50:28                                                        
+
+     Argentum    
+     A project to read transactions and plot candlestick graphs
+                   
+     vinc-                                                                
+     ====================================================================== -->
+<project name="Argentum" default="package">
+	<description>
+            A project to read transactions and plot candlestick graphs
+    </description>
+
+	<!-- ================================= 
+          target: default              
+         ================================= -->
+	<target name="compile">
+		<delete dir="bin" />
+		<mkdir dir="bin" />
+
+		<javac srcdir="src/main/java" destdir="bin">
+			<classpath>
+				<fileset dir="lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: package                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="package" depends="compile">
+		<mkdir dir="jar" />
+		<jar destfile="jar/argentum.jar" basedir="bin">
+		</jar>
+	</target>
+
+
+	<!-- - - - - - - - - - - - - - - - - - 
+          target: execute                      
+         - - - - - - - - - - - - - - - - - -->
+	<target name="execute" depends="package">
+		<java classname="br.com.caelum.argentum.ui.ArgentumUI" fork="true">
+			<classpath>
+				<filelist files="jar/argentum.jar">
+				</filelist>
+				<fileset dir="lib">
+					<include name="*.jar" />
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+
+
+</project>
